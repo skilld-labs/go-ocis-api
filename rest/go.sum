@@ -1,0 +1,6 @@
+github.com/kobergj/gowebdav v0.0.0-20250102091030-aa65266db202 h1:A1xJ2NKgiYFiaHiLl9B5yw/gUBACSs9crDykTS3GuQI=
+github.com/kobergj/gowebdav v0.0.0-20250102091030-aa65266db202/go.mod h1:bHA7t77X/QFExdeAnDzK6vKM34kEZAcE1OX4MfiwjkE=
+github.com/owncloud/libre-graph-api-go v1.0.5-0.20250217093259-fa3804be6c27 h1:ID8s5lGBntmrlI6TbDAjTzRyHucn3bVM2wlW+HBplv4=
+github.com/owncloud/libre-graph-api-go v1.0.5-0.20250217093259-fa3804be6c27/go.mod h1:+gT+x62AS9u2Farh9wE2uYmgdvTg0MQgsSI62D+xoRg=
+golang.org/x/net v0.41.0 h1:vBTly1HeNPEn3wtREYfy4GZ/NECgw2Cnl+nK6Nz3uvw=
+golang.org/x/net v0.41.0/go.mod h1:B/K4NNqkfmg07DQYrbwvSluqCJOOXwUjeb/5lOisjbA=
