@@ -25,6 +25,19 @@ type Client struct {
 	WebdavAPI *webdav.Client
 }
 
+type AuthTransport struct {
+	BaseTransport http.RoundTripper
+	Username      string
+	Password      string
+}
+
+func (t *AuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	// All headers are resetting after redirect.
+	// Set basic auth manually for webdav.
+	req.SetBasicAuth(t.Username, t.Password)
+	return t.BaseTransport.RoundTrip(req)
+}
+
 func NewClient(protocol string, host string, port string, username string, password string, insecure bool) *Client {
 	configuration := &libregraph.Configuration{
 		Servers: libregraph.ServerConfigurations{
@@ -53,15 +66,18 @@ func NewClient(protocol string, host string, port string, username string, passw
 
 	webdavApiClient := webdav.NewClient(fmt.Sprintf("%s://%s:%s%s", protocol, host, port, "/dav"), username, password)
 
+	baseTransport := &http.Transport{}
 	if insecure == true {
-		webdavApiClient.SetTransport(&http.Transport{
-			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
-			},
-		})
+		baseTransport.TLSClientConfig = &tls.Config{
+			InsecureSkipVerify: true,
+		}
 	}
-
-	webdavApiClient.Connect()
+	authTransport := &AuthTransport{
+		BaseTransport: baseTransport,
+		Username: username,
+		Password: password,
+	}
+	webdavApiClient.SetTransport(authTransport)
 
 	return &Client{
 		Protocol: protocol,
